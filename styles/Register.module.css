@@ -1,0 +1,673 @@
+.container {
+  min-height: 100vh;
+  background: #f8f8f8;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background: #2c2c2c;
+  color: white;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.error {
+  background: #3a3a3a;
+  color: white;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 4px solid #666;
+}
+
+.error button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.error button:hover {
+  opacity: 1;
+}
+
+.mainContent {
+  flex: 1;
+  padding: 0;
+  overflow-y: auto;
+  background: #f8f8f8;
+}
+
+.cartSection {
+  background: white;
+  padding: 1rem;
+  max-width: 100%;
+  margin: 0;
+  min-height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+}
+
+.cartHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.cartHeader h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #2c2c2c;
+  font-weight: 600;
+}
+
+.headerButtons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.scanButton,
+.ecStockButton {
+  background: white;
+  color: #2c2c2c;
+  border: 1px solid #2c2c2c;
+  padding: 0.6rem 1rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.scanButton:hover,
+.ecStockButton:hover {
+  background: #2c2c2c;
+  color: white;
+}
+
+.scanButton:disabled,
+.ecStockButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cartItems {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+  min-height: 300px;
+}
+
+.emptyCart {
+  text-align: center;
+  padding: 4rem 1rem;
+  color: #999;
+  font-size: 1rem;
+}
+
+.cartItem {
+  background: #fafafa;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+}
+
+.itemInfo {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+}
+
+.itemName {
+  font-weight: 500;
+  color: #2c2c2c;
+  flex: 1;
+  font-size: 0.95rem;
+}
+
+.itemPrice {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.itemControls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.quantityBtn {
+  background: white;
+  border: 1px solid #ddd;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all 0.2s;
+  color: #2c2c2c;
+}
+
+.quantityBtn:hover {
+  background: #f0f0f0;
+  border-color: #999;
+}
+
+.quantity {
+  min-width: 40px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.subtotal {
+  margin-left: auto;
+  font-weight: 600;
+  color: #2c2c2c;
+  font-size: 1rem;
+}
+
+.removeBtn {
+  background: white;
+  border: 1px solid #ddd;
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.2s;
+  color: #666;
+}
+
+.removeBtn:hover {
+  background: #f0f0f0;
+  border-color: #666;
+  color: #2c2c2c;
+}
+
+.totalSection {
+  border-top: 2px solid #e0e0e0;
+  padding-top: 1rem;
+  margin-bottom: 1rem;
+  margin-top: auto;
+}
+
+.subtotalRow,
+.taxRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.subtotalLabel,
+.taxLabel {
+  font-size: 1rem;
+  color: #666;
+}
+
+.subtotalAmount,
+.taxAmount {
+  font-size: 1rem;
+  color: #666;
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.8rem;
+  margin-top: 0.8rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.totalLabel {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #2c2c2c;
+}
+
+.totalAmount {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #2c2c2c;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.clearBtn,
+.checkoutBtn {
+  flex: 1;
+  padding: 1rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.clearBtn {
+  background: #f0f0f0;
+  color: #666;
+  border: 1px solid #ddd;
+}
+
+.clearBtn:hover:not(:disabled) {
+  background: #e0e0e0;
+  color: #2c2c2c;
+}
+
+.checkoutBtn {
+  background: #2c2c2c;
+  color: white;
+}
+
+.checkoutBtn:hover:not(:disabled) {
+  background: #1a1a1a;
+}
+
+.clearBtn:disabled,
+.checkoutBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* モーダル共通スタイル */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modalContent {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modalContent h2 {
+  margin: 0 0 1rem 0;
+  color: #2c2c2c;
+  font-size: 1.3rem;
+}
+
+.paymentMethods {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.paymentBtn {
+  padding: 1.2rem 0.8rem;
+  border: 2px solid #ddd;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  color: #2c2c2c;
+}
+
+.paymentBtn:hover {
+  border-color: #2c2c2c;
+}
+
+.paymentBtn.active {
+  border-color: #2c2c2c;
+  background: #f0f0f0;
+  font-weight: 600;
+}
+
+.cashInput {
+  margin-bottom: 1.5rem;
+}
+
+.cashInput label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #2c2c2c;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.cashInput input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.cashInput input:focus {
+  outline: none;
+  border-color: #2c2c2c;
+}
+
+.change {
+  margin-top: 0.8rem;
+  padding: 0.8rem;
+  background: #f0f0f0;
+  border-radius: 4px;
+  color: #2c2c2c;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.modalActions {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.cancelBtn,
+.confirmBtn {
+  flex: 1;
+  padding: 0.9rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cancelBtn {
+  background: #f0f0f0;
+  color: #666;
+  border: 1px solid #ddd;
+}
+
+.cancelBtn:hover {
+  background: #e0e0e0;
+  color: #2c2c2c;
+}
+
+.confirmBtn {
+  background: #2c2c2c;
+  color: white;
+}
+
+.confirmBtn:hover:not(:disabled) {
+  background: #1a1a1a;
+}
+
+.confirmBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* QRコード表示モーダル */
+.qrModalContent {
+  background: white;
+  border-radius: 8px;
+  padding: 2rem;
+  max-width: 450px;
+  width: 100%;
+  text-align: center;
+}
+
+.qrModalContent h2 {
+  margin: 0 0 0.8rem 0;
+  color: #2c2c2c;
+  font-size: 1.3rem;
+}
+
+.instruction {
+  color: #666;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.qrCodeContainer {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-bottom: 1.5rem;
+}
+
+.qrCodeImage {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.qrInfo {
+  background: #fafafa;
+  border-radius: 4px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #e0e0e0;
+}
+
+.qrInfoRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.qrInfoRow:last-child {
+  border-bottom: none;
+}
+
+.qrAmount {
+  font-weight: 700;
+  color: #2c2c2c;
+  font-size: 1.2rem;
+}
+
+.closeQRBtn {
+  width: 100%;
+  padding: 0.9rem;
+  background: #666;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.closeQRBtn:hover {
+  background: #4a4a4a;
+}
+
+/* EC在庫確認結果 */
+.ecStockCard {
+  background: #fafafa;
+  border-radius: 4px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  border: 1px solid #e0e0e0;
+}
+
+.ecStockRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.ecStockRow:last-child {
+  border-bottom: none;
+}
+
+.ecStockRow .label {
+  color: #666;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.stockQuantity {
+  color: #2c2c2c;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+/* タブレット対応 (768px以上) */
+@media (min-width: 768px) {
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .cartSection {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .paymentMethods {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .headerButtons {
+    flex-direction: row;
+  }
+}
+
+/* スマートフォン対応 (767px以下) */
+@media (max-width: 767px) {
+  .header {
+    padding: 0.8rem 1rem;
+  }
+
+  .header h1 {
+    font-size: 1.1rem;
+  }
+
+  .cartSection {
+    padding: 1rem;
+  }
+
+  .cartHeader h2 {
+    font-size: 1rem;
+  }
+
+  .scanButton,
+  .ecStockButton {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.85rem;
+  }
+  
+  .headerButtons {
+    flex-direction: column;
+    width: auto;
+  }
+
+  .totalAmount {
+    font-size: 1.5rem;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .paymentMethods {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .paymentBtn {
+    padding: 1rem 0.5rem;
+    font-size: 0.85rem;
+  }
+}
+/* ヘッダーを修正 */
+.header {
+  background: #2c2c2c;
+  color: white;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* タブレットモードへのリンク */
+.tabletLink {
+  display: none; /* スマホでは非表示 */
+  color: white;
+  text-decoration: none;
+  padding: 0.6rem 1rem;
+  background: white;
+  color: #2c2c2c;
+  border: 1px solid white;
+  border-radius: 4px;
+  transition: all 0.2s;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.tabletLink:hover {
+  background: #f0f0f0;
+  border-color: #f0f0f0;
+}
+
+/* タブレット対応 (768px以上) */
+@media (min-width: 768px) {
+  .tabletLink {
+    display: block; /* タブレットで表示 */
+  }
+
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .cartSection {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .paymentMethods {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .headerButtons {
+    flex-direction: row;
+  }
+}

@@ -1,0 +1,431 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  z-index: 2000;
+  overflow-y: auto;
+}
+
+.scannerContainer {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f8f8f8;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #ddd;
+  background: white;
+  position: relative;
+}
+
+.backBtn {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: #2c2c2c;
+  position: absolute;
+  left: 0.5rem;
+}
+
+.header h2 {
+  margin: 0;
+  color: #2c2c2c;
+  font-size: 1.1rem;
+  text-align: center;
+  width: 100%;
+  font-weight: 600;
+}
+
+.content {
+  flex: 1;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: #f8f8f8;
+}
+
+.sectionTitle {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  color: #2c2c2c;
+  font-weight: 600;
+  text-align: center;
+}
+
+.videoContainer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: #1a1a1a;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cameraOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(26, 26, 26, 0.7);
+  color: white;
+  pointer-events: none;
+}
+
+.cameraIcon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.7;
+}
+
+.cameraOverlay p {
+  font-size: 0.95rem;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.scanLine {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  right: 10%;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #666,
+    transparent
+  );
+  animation: scan 2s ease-in-out infinite;
+  box-shadow: 0 0 20px #666;
+}
+
+@keyframes scan {
+  0%, 100% {
+    transform: translateY(-50px);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(50px);
+    opacity: 1;
+  }
+}
+
+.error {
+  background: #3a3a3a;
+  color: white;
+  padding: 1rem;
+  border-radius: 4px;
+  text-align: center;
+  border-left: 4px solid #666;
+}
+
+.scanBtn {
+  width: 100%;
+  padding: 1rem;
+  background: #2c2c2c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.scanBtn:hover:not(:disabled) {
+  background: #1a1a1a;
+}
+
+.scanBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.resultCard {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  border: 1px solid #ddd;
+}
+
+.resultRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.resultRow:last-of-type {
+  border-bottom: none;
+  margin-bottom: 1rem;
+}
+
+.resultLabel {
+  color: #666;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.resultValue {
+  color: #2c2c2c;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.resultActions {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.rescanBtn,
+.addBtn {
+  flex: 1;
+  padding: 0.9rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.rescanBtn {
+  background: white;
+  color: #666;
+  border: 1px solid #ddd;
+}
+
+.rescanBtn:hover {
+  background: #f0f0f0;
+  color: #2c2c2c;
+}
+
+.addBtn {
+  background: #2c2c2c;
+  color: white;
+}
+
+.addBtn:hover {
+  background: #1a1a1a;
+}
+
+/* タイムアウト表示 */
+.timeoutCard {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.timeoutMessage {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2c2c2c;
+}
+
+.timeoutActions {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.backToScanBtn,
+.manualInputBtn {
+  flex: 1;
+  padding: 0.9rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.backToScanBtn {
+  background: white;
+  color: #666;
+  border: 1px solid #ddd;
+}
+
+.backToScanBtn:hover {
+  background: #f0f0f0;
+  color: #2c2c2c;
+}
+
+.manualInputBtn {
+  background: #2c2c2c;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.manualInputBtn:hover {
+  background: #1a1a1a;
+}
+
+/* 直接入力フォーム */
+.manualInputCard {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  border: 1px solid #ddd;
+}
+
+.inputLabel {
+  display: block;
+  margin-bottom: 0.8rem;
+  color: #2c2c2c;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.input {
+  width: 100%;
+  padding: 0.9rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  margin-bottom: 1rem;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #2c2c2c;
+}
+
+.manualActions {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.submitBtn {
+  flex: 1;
+  padding: 0.9rem;
+  background: #2c2c2c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.submitBtn:hover {
+  background: #1a1a1a;
+}
+
+/* エラー表示 */
+.errorCard {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.errorMessage {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2c2c2c;
+}
+
+.backBtn2 {
+  width: 100%;
+  padding: 0.9rem;
+  background: #666;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.backBtn2:hover {
+  background: #4a4a4a;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 767px) {
+  .header h2 {
+    font-size: 1rem;
+  }
+
+  .videoContainer {
+    aspect-ratio: 3 / 4;
+  }
+
+  .cameraIcon {
+    font-size: 3rem;
+  }
+
+  .cameraOverlay p {
+    font-size: 0.85rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  .scannerContainer {
+    background: white;
+    border-radius: 16px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    min-height: auto;
+  }
+
+  .content {
+    padding: 1.5rem;
+  }
+}
+
+.scanFailedMessage {
+  background: #3a3a3a;
+  color: white;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-left: 4px solid #666;
+}
