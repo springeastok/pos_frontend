@@ -13,7 +13,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read #This is required for actions/checkout
+      contents: read
 
     steps:
       - uses: actions/checkout@v4
@@ -22,6 +22,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '22.x'
+
+      # ▼▼▼ このステップを追加 ▼▼▼
+      - name: Install dependencies and Build
+        run: |
+          npm install
+          npm run build
+      # ▲▲▲ ここまで追加 ▲▲▲
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
