@@ -202,7 +202,7 @@ export default function Tablet() {
   return (
     <>
       <Head>
-        <title>タブレットモード - POS System</title>
+        <title>タブレット（会計）モード - POS System</title>
       </Head>
 
       <div className={styles.container}>
