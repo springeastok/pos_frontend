@@ -20,9 +20,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '22.x'
-          cache: 'npm' # npmのキャッシュを有効化して高速化
+          cache: 'npm'
+          # ▼▼▼ Next.jsプロジェクトがあるフォルダを指定 ▼▼▼
+          cache-dependency-path: frontend/package-lock.json
 
       - name: Install dependencies and Build
+        # ▼▼▼ 作業場所を 'frontend' フォルダに指定 ▼▼▼
+        working-directory: ./frontend
         run: |
           npm install
           npm run build
@@ -31,7 +35,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: .
+          # ▼▼▼ アップロードするフォルダを 'frontend' に指定 ▼▼▼
+          path: ./frontend 
 
   deploy:
     runs-on: ubuntu-latest
@@ -47,6 +52,6 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'app-002-gen10-step3-1-node-oshima56' # ご自身のアプリ名
+          app-name: 'app-002-gen10-step3-1-node-oshima56'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5DEABD97FED5447AB002F5CC8CF7DBB0 }} # ご自身のシークレット名
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5DEABD97FED5447AB002F5CC8CF7DBB0 }}
