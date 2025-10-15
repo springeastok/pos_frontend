@@ -25,10 +25,6 @@ jobs:
           npm install
           npm run build
 
-      # ▼▼▼【最重要】ビルド後にnode_modulesを削除する ▼▼▼
-      - name: 'Remove node_modules for deployment'
-        run: rm -rf node_modules
-
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
