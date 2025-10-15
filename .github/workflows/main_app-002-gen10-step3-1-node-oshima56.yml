@@ -21,6 +21,10 @@ jobs:
           cache: 'npm'
 
       - name: 'npm install and build'
+        # ▼▼▼ 変更点 ▼▼▼
+        # GitHubのシークレットを読み込み、ビルドプロセスで使えるようにする
+        env:
+          NEXT_PUBLIC_API_URL: ${{ secrets.AZURE_WEBAPP_API_URL }}
         run: |
           npm install
           npm run build
@@ -32,3 +36,4 @@ jobs:
           app-name: 'app-002-gen10-step3-1-node-oshima56'
           package: .
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5DEABD97FED5447AB002F5CC8CF7DBB0 }}
+
