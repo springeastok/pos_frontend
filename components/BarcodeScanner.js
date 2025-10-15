@@ -57,9 +57,11 @@ export default function BarcodeScanner({
     try {
       setError('');
 
-      // カメラプレビューのみ表示 (facingMode を使用)
+      // カメラプレビューのみ表示 (ideal を使用)
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'environment' }
+        video: { 
+          facingMode: { ideal: 'environment' } 
+        }
       });
       
       if (videoRef.current) {
@@ -78,7 +80,6 @@ export default function BarcodeScanner({
       setIsScanning(true);
       setCameraReady(true);
 
-      // タブレットモードでは10秒、通常モードでは8秒
       const timeoutDuration = tabletMode ? 10000 : 8000;
 
       // タイムアウトを設定
@@ -86,20 +87,13 @@ export default function BarcodeScanner({
         setIsScanning(false);
         
         if (tabletMode) {
-          // タブレットモード: 失敗メッセージを2秒表示後に閉じる
           setScanFailed(true);
           setTimeout(() => {
-            if (reader) {
-              reader.reset();
-            }
-            if (onTimeout) {
-              onTimeout();
-            } else {
-              onClose();
-            }
+            if (reader) reader.reset();
+            if (onTimeout) onTimeout();
+            else onClose();
           }, 2000);
         } else {
-          // 通常モード: タイムアウト画面を表示
           setScanTimeout(true);
           if (reader) {
             reader.reset();
@@ -108,39 +102,27 @@ export default function BarcodeScanner({
         }
       }, timeoutDuration);
 
-      // スキャン開始 (decodeFromConstraints を使用)
+      // スキャン開始 (ideal を使用)
       reader.decodeFromConstraints(
-        { video: { facingMode: 'environment' } },
+        { video: { facingMode: { ideal: 'environment' } } },
         videoRef.current,
         (result, err) => {
           if (result) {
-            // タイムアウトをクリア
-            if (scanTimeoutRef.current) {
-              clearTimeout(scanTimeoutRef.current);
-            }
+            if (scanTimeoutRef.current) clearTimeout(scanTimeoutRef.current);
 
             const code = result.getText();
             
             if (mode === 'qr') {
-              // QRコードモード
               if (tabletMode) {
-                // タブレットモード: 即座に親に渡す（ダイアログなし）
                 setIsScanning(false);
-                if (reader) {
-                  reader.reset();
-                }
+                if (reader) reader.reset();
                 onScan(code);
               } else {
-                // 通常モード: 確認ダイアログを表示
                 handleScanSuccess(code, 'qr');
               }
             } else {
-              // 商品/EC在庫モード: 数字のみ抽出
               const numericCode = parseInt(code.replace(/\D/g, ''));
-              
-              if (numericCode) {
-                handleScanSuccess(numericCode, 'product');
-              }
+              if (numericCode) handleScanSuccess(numericCode, 'product');
             }
           }
           
@@ -153,9 +135,7 @@ export default function BarcodeScanner({
     } catch (err) {
       setError(err.message || 'スキャンに失敗しました');
       setIsScanning(false);
-      if (scanTimeoutRef.current) {
-        clearTimeout(scanTimeoutRef.current);
-      }
+      if (scanTimeoutRef.current) clearTimeout(scanTimeoutRef.current);
     }
   };
 
@@ -167,7 +147,6 @@ export default function BarcodeScanner({
     setScanTimeout(false);
     setProductNotFound(false);
 
-    // 8秒のタイムアウトを設定
     scanTimeoutRef.current = setTimeout(() => {
       setIsScanning(false);
       setScanTimeout(true);
@@ -178,29 +157,21 @@ export default function BarcodeScanner({
     }, 8000);
 
     try {
-      // スキャン開始 (decodeFromConstraints を使用)
+      // スキャン開始 (ideal を使用)
       codeReader.decodeFromConstraints(
-        { video: { facingMode: 'environment' } },
+        { video: { facingMode: { ideal: 'environment' } } },
         videoRef.current,
         (result, err) => {
           if (result) {
-            // タイムアウトをクリア
-            if (scanTimeoutRef.current) {
-              clearTimeout(scanTimeoutRef.current);
-            }
+            if (scanTimeoutRef.current) clearTimeout(scanTimeoutRef.current);
 
             const code = result.getText();
             
             if (mode === 'qr') {
-              // QRコードモード
               handleScanSuccess(code, 'qr');
             } else {
-              // 商品/EC在庫モード: 数字のみ抽出
               const numericCode = parseInt(code.replace(/\D/g, ''));
-              
-              if (numericCode) {
-                handleScanSuccess(numericCode, 'product');
-              }
+              if (numericCode) handleScanSuccess(numericCode, 'product');
             }
           }
           
@@ -213,9 +184,7 @@ export default function BarcodeScanner({
     } catch (err) {
       setError(err.message || 'スキャンに失敗しました');
       setIsScanning(false);
-      if (scanTimeoutRef.current) {
-        clearTimeout(scanTimeoutRef.current);
-      }
+      if (scanTimeoutRef.current) clearTimeout(scanTimeoutRef.current);
     }
   };
 
@@ -229,7 +198,6 @@ export default function BarcodeScanner({
 
   const handleAdd = async () => {
     if (!scannedResult) return;
-    // 商品コードを親に渡す（検証は親コンポーネントで行う）
     onScan(scannedResult.data);
   };
 
@@ -271,12 +239,9 @@ export default function BarcodeScanner({
 
   const getTitle = () => {
     switch(mode) {
-      case 'qr':
-        return 'QRコードスキャン';
-      case 'ec-stock':
-        return 'バーコードスキャン';
-      default:
-        return 'バーコードスキャン';
+      case 'qr': return 'QRコードスキャン';
+      case 'ec-stock': return 'バーコードスキャン';
+      default: return 'バーコードスキャン';
     }
   };
 
@@ -284,12 +249,9 @@ export default function BarcodeScanner({
     if (scannedResult || scanTimeout || showManualInput || productNotFound) return '';
     
     switch(mode) {
-      case 'qr':
-        return 'QRコードをカメラに映してください';
-      case 'ec-stock':
-        return 'バーコードをカメラに映してください';
-      default:
-        return 'バーコードをカメラに映してください';
+      case 'qr': return 'QRコードをカメラに映してください';
+      case 'ec-stock': return 'バーコードをカメラに映してください';
+      default: return 'バーコードをカメラに映してください';
     }
   };
 
@@ -326,14 +288,12 @@ export default function BarcodeScanner({
             <div className={styles.error}>{error}</div>
           )}
 
-          {/* タブレットモード: スキャン失敗メッセージ */}
           {tabletMode && scanFailed && (
             <div className={styles.scanFailedMessage}>
               QRコードを読み取れませんでした
             </div>
           )}
 
-          {/* 通常モード: スキャン開始ボタン */}
           {!tabletMode && !scannedResult && !scanTimeout && !showManualInput && !productNotFound && cameraReady && (
             <button 
               className={styles.scanBtn}
@@ -344,7 +304,6 @@ export default function BarcodeScanner({
             </button>
           )}
 
-          {/* タイムアウト時の表示（通常モードのみ） */}
           {!tabletMode && scanTimeout && !showManualInput && (
             <div className={styles.timeoutCard}>
               <p className={styles.timeoutMessage}>スキャンできません</p>
@@ -365,7 +324,6 @@ export default function BarcodeScanner({
             </div>
           )}
 
-          {/* 直接入力フォーム（通常モードのみ） */}
           {!tabletMode && showManualInput && (
             <div className={styles.manualInputCard}>
               <label className={styles.inputLabel}>バーコード番号を入力</label>
@@ -394,7 +352,6 @@ export default function BarcodeScanner({
             </div>
           )}
 
-          {/* 商品が見つからない時の表示（通常モードのみ） */}
           {!tabletMode && productNotFound && (
             <div className={styles.errorCard}>
               <p className={styles.errorMessage}>この商品は登録できません</p>
@@ -407,7 +364,6 @@ export default function BarcodeScanner({
             </div>
           )}
 
-          {/* スキャン成功時の表示（通常モードのみ） */}
           {!tabletMode && scannedResult && !productNotFound && (
             <div className={styles.resultCard}>
               {scannedResult.type === 'product' && (
