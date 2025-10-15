@@ -57,21 +57,9 @@ export default function BarcodeScanner({
     try {
       setError('');
 
-      const videoInputDevices = await reader.listVideoInputDevices();
-      
-      if (videoInputDevices.length === 0) {
-        throw new Error('カメラが見つかりません');
-      }
-
-      // 背面カメラを優先的に選択
-      const selectedDevice = videoInputDevices.find(device => 
-        device.label.toLowerCase().includes('back') || 
-        device.label.toLowerCase().includes('rear')
-      ) || videoInputDevices[0];
-
-      // カメラプレビューのみ表示
+      // カメラプレビューのみ表示 (facingMode を使用)
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { deviceId: selectedDevice.deviceId }
+        video: { facingMode: 'environment' }
       });
       
       if (videoRef.current) {
@@ -88,18 +76,6 @@ export default function BarcodeScanner({
     try {
       setError('');
       setIsScanning(true);
-
-      const videoInputDevices = await reader.listVideoInputDevices();
-      
-      if (videoInputDevices.length === 0) {
-        throw new Error('カメラが見つかりません');
-      }
-
-      const selectedDevice = videoInputDevices.find(device => 
-        device.label.toLowerCase().includes('back') || 
-        device.label.toLowerCase().includes('rear')
-      ) || videoInputDevices[0];
-
       setCameraReady(true);
 
       // タブレットモードでは10秒、通常モードでは8秒
@@ -132,9 +108,9 @@ export default function BarcodeScanner({
         }
       }, timeoutDuration);
 
-      // スキャン開始
-      reader.decodeFromVideoDevice(
-        selectedDevice.deviceId,
+      // スキャン開始 (decodeFromConstraints を使用)
+      reader.decodeFromConstraints(
+        { video: { facingMode: 'environment' } },
         videoRef.current,
         (result, err) => {
           if (result) {
@@ -202,15 +178,9 @@ export default function BarcodeScanner({
     }, 8000);
 
     try {
-      const videoInputDevices = await codeReader.listVideoInputDevices();
-      const selectedDevice = videoInputDevices.find(device => 
-        device.label.toLowerCase().includes('back') || 
-        device.label.toLowerCase().includes('rear')
-      ) || videoInputDevices[0];
-
-      // スキャン開始
-      codeReader.decodeFromVideoDevice(
-        selectedDevice.deviceId,
+      // スキャン開始 (decodeFromConstraints を使用)
+      codeReader.decodeFromConstraints(
+        { video: { facingMode: 'environment' } },
         videoRef.current,
         (result, err) => {
           if (result) {
