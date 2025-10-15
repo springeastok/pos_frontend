@@ -45,6 +45,6 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'app-002-gen10-step3-1-node-oshima56'
+          app-name: 'app-002-gen10-step3-1-node-oshima56' 
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5DEABD97FED5447AB002F5CC8CF7DBB0 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5DEABD97FED5447AB002F5CC8CF7DBB0 }} 
